@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/deputies', 'DeputyController')->only(['index', 'show', 'store']);
 Route::resource('/indemnities', 'IndemnityController')->only(['index', 'show', 'store']);
 
+// Route::view('/', 'app');
+Route::view('{path}', 'app')->where('path', '[\/\w\.-]*');
+
 
 // Route::get('/teste', function(){
 //     $url = 'http://dadosabertos.almg.gov.br/ws/prestacao_contas/verbas_indenizatorias/legislatura_atual/deputados/22581/2019/06';
