@@ -20,6 +20,7 @@ header {
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: min(5rem, 20vh);
   
 }
 </style>

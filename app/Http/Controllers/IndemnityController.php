@@ -40,12 +40,14 @@ class IndemnityController extends Controller
         $year = $request->year;
         $month = $request->month;
 
-        // return [$year, $month];
-        $indemnitiesExist = Indemnity::where('dateReference', 'LIKE', "{$year}-{$month}%")->get();
-        if(sizeof($indemnitiesExist) > 0){
-            return;
-        }
+        // Indemnity::truncate();
+        $indemnitiesVerify = Indemnity::where('dateReference', 'LIKE', "{$year}-{$month}%")->get();
 
+        // return sizeof($indemnitiesVerify);
+        if(sizeof($indemnitiesVerify) > 0 ){
+            return ['msg' => 'Already registered'];
+        }
+       
         $deputies = Deputy::all();
         foreach ($deputies as $deputy) {
             $url = 'http://dadosabertos.almg.gov.br/ws/prestacao_contas/verbas_indenizatorias/legislatura_atual/deputados/' . $deputy->id . '/' . $year. '/' . $month . '?formato=json';
@@ -74,10 +76,10 @@ class IndemnityController extends Controller
 
             // dd($indemnitiesNews);
             Indemnity::insert($indemnitiesNews);
-            sleep(1);
+            // sleep(1);
         }
 
-        return ['msg ' => 'cadastrado'] ;
+        return ['message ' => 'Registered successfully'] ;
         // dd($indemnities);
         // dd($indemnities);
 

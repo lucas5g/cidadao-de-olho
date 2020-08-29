@@ -9,23 +9,23 @@
         <Input label="Vendedor" v-model="salesman" @input="handleSubmit" /> -->
       </div>
 
-      <p v-if="loading">Carregando...</p>
+      <p v-if="deputies.length === 0">Carregando...</p>
       <!-- <p v-if="deputies.length === 0 && date && !loading">Nada Encontrado :(</p> -->
-      <table v-if="deputies.length > 0 && !loading">
+      <table v-else>
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <th scope="col">N°</th>
             <th scope="col">Nome</th>
             <th scope="col">Partido</th>
           </tr>
         </thead>
 
-        <tbody v-for="deputy in deputies" :key="deputy.id">
-          <tr>
+        <tbody>
+          <tr  v-for="(deputy, index) in deputies" :key="deputy.id">
             <!-- <th title="Clique para mais opções">
               <router-link :to="`/servicos/editar/${service.id}`">{{service.created_at | moment }}</router-link>
             </th> -->
-            <th scope="row">{{deputy.id }}</th>
+            <th scope="row">{{ ++index }}</th>
             <td>{{deputy.name }}</td>
             <td>{{deputy.party }}</td>
           </tr>
@@ -77,7 +77,7 @@ export default {
   mounted() {
     (async () => {
       const { data } = await api.get("deputies");
-      console.log(data)
+      // console.log(data)
       this.deputies = data;
     })();
   },

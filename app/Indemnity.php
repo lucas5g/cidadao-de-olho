@@ -13,6 +13,7 @@ class Indemnity extends Model
         ->select($this::raw('deputy_id, sum(value) as monthValue'))
         ->groupBy('deputy_id')
         ->orderByDesc('monthValue')
+        ->limit(5)
         ->get();   
     }
 

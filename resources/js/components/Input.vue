@@ -3,7 +3,7 @@
     <label>
       {{label}}
       <input
-        :type=  "type || 'text'" 
+        :type="type || 'text'"
         :value="value"
         required
         @input="$emit('input', $event.target.value)"
@@ -19,27 +19,26 @@ export default {
     type: String,
     label: String,
     value: String,
-
   },
 };
 </script>
-<style scoped>
-#form-group {
+<style  scoped >
+#form-group label {
   display: flex;
   flex-direction: column;
   margin-bottom: 1.5rem;
 }
 
-#form-group input {
-  width: 100%;
+#form-group label input {
   /* height: 2.5rem; */
+  /* width: 100%; */
   padding: 1rem;
   border-radius: 5px;
   border: 1px solid grey;
   margin-top: 0.4rem;
   font-size: 1rem;
 }
-#form-group input[type="date"]{
-  padding: .88rem;
+#form-group input[type="date"] {
+  padding: 0.88rem;
 }
 </style>
