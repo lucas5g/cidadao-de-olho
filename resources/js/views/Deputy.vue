@@ -14,7 +14,7 @@
       <table v-else>
         <thead>
           <tr>
-            <th scope="col">N°</th>
+            <th scope="col">N° </th>
             <th scope="col">Nome</th>
             <th scope="col">Partido</th>
           </tr>
@@ -22,9 +22,7 @@
 
         <tbody>
           <tr  v-for="(deputy, index) in deputies" :key="deputy.id">
-            <!-- <th title="Clique para mais opções">
-              <router-link :to="`/servicos/editar/${service.id}`">{{service.created_at | moment }}</router-link>
-            </th> -->
+       
             <th scope="row">{{ ++index }}</th>
             <td>{{deputy.name }}</td>
             <td>{{deputy.party }}</td>
@@ -107,12 +105,14 @@ table {
   table-layout: fixed;
 }
 th,
+
 td {
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
   word-wrap: break-word;
 }
+
 @media (min-width: 700px) {
   main #input-block {
     display: grid;

@@ -3,14 +3,46 @@
     <Header text="Rank de Gastos" />
     <main>
       <div id="input-block">
-        <Input label="Ano" v-model="year" @input="handleSubmit" />
-        <Input label="Mês" v-model="month" @input="handleSubmit" />
+        <!-- <Input label="Ano" v-model="year" @input="handleSubmit" /> -->
+        <Select
+          label = "Ano"
+          v-model="year"
+          @input="handleSubmit"
+          :options = "[
+            { value: '2019', label: '2019'},
+            { value: '2020', label: '2020'},
+          ]"
+          
+         />
+        <Select
+          label = "Mês"
+          v-model="month"
+          @input="handleSubmit"
+          :options = "[
+            { value: '01', label: 'Janeiro'},
+            { value: '02', label: 'Fevereiro'},
+            { value: '03', label: 'Março'},
+            { value: '04', label: 'Abril'},
+            { value: '05', label: 'Maio'},
+            { value: '06', label: 'Junho'},
+            { value: '07', label: 'Julho'},
+            { value: '08', label: 'Agosto'},
+            { value: '09', label: 'Setembro'},
+            { value: '10', label: 'Outubro'},
+            { value: '11', label: 'Novembro'},
+            { value: '12', label: 'Dezembro'},          
+            
+          ]"
+          
+         />
+
+        <!-- <Input label="Mês" v-model="month" @input="handleSubmit" /> -->
       </div>
 
-      <!-- <p v-if="deputies.length === 0 && date && !loading">Nada Encontrado :(</p> -->
-      <p v-if="indemnities.length === 0">Carregando...</p>
+      <p v-if="indemnities.length === 0 && year != '' && month != '' ">Carregando...</p>
+
       <table v-else>
-        <thead>
+        <thead v-if="indemnities.length > 0">
           <tr>
             <th scope="col">N°</th>
             <th scope="col">Deputado</th>
@@ -41,6 +73,7 @@
 import api from "../services/api";
 import Header from "../components/Header";
 import Input from "../components/Input";
+import Select from "../components/Select"
 // import moment from "moment";
 // import useSWRV from "swrv";
 
@@ -49,6 +82,7 @@ export default {
   components: {
     Header,
     Input,
+    Select
   },
 
   data() {
@@ -79,9 +113,11 @@ export default {
       console.log(data)
       this.indemnities = data;
 
-      // if(data.length > 0){
-      //   return
-      // }
+      if(data.length === 0){
+        window.alert("Nada cadastrado")
+        window.location.reload()
+        return
+      }
 
       // console.log('bora add')
 
@@ -94,8 +130,10 @@ export default {
   mounted() {
     (async () => {
       const obj = {
-        year: 2020,
-        month: "07",
+        // year: 2020,
+        // month: "07",
+        year: "" ,
+        month: "",
       };
 
       const { data } = await api.get("indemnities", {
